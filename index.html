@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Trello viewer</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://api.trello.com/1/client.js?key=0b1482a2c26f14282d38da1adeab8098"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="lane">
+                    <h1>Backlog</h1>
+                    <div class="row backlog"></div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="lane">
+                    <h1>Work in Progress</h1>
+                    <div class="row wip"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        Trello.boards.get("587b4f79ba96ddc77423ec11/lists", { cards: "open", card_fields: "name,desc,idMembers" }, function(lists) {
+            for (var list in lists) {
+                var thisList = lists[list];
+                if (thisList.name == "Backlog") {
+                    displayCards('primary', thisList.cards, '.backlog')
+                }
+                if (thisList.name == "In Progress") {
+                    displayCards('primary', thisList.cards, '.wip')
+                }
+            }
+
+        });
+        Trello.boards.get("587b5967108d9aca5b061fb7/lists", { cards: "open", card_fields: "name,desc,idMembers" }, function(lists) {
+            for (var list in lists) {
+                var thisList = lists[list];
+                if (thisList.name == "Backlog") {
+                    displayCards('info', thisList.cards, '.backlog')
+                }
+                if (thisList.name == "In Progress") {
+                    displayCards('info', thisList.cards, '.wip')
+                }
+            }
+
+        });
+        Trello.boards.get("587b598685586f338399bbac/lists", { cards: "open", card_fields: "name,desc,idMembers,shortUrl" }, function(lists) {
+            for (var list in lists) {
+                var thisList = lists[list];
+                if (thisList.name == "Backlog") {
+                    displayCards('default', thisList.cards, '.backlog')
+                }
+                if (thisList.name == "In Progress") {
+                    displayCards('default', thisList.cards, '.wip')
+                }
+            }
+
+        });
+        Trello.boards.get("58813467adccf2b6e6ea7200/lists", { cards: "open", card_fields: "name,desc,idMembers,shortUrl" }, function(lists) {
+            for (var list in lists) {
+                var thisList = lists[list];
+                if (thisList.name == "Backlog") {
+                    displayCards('success', thisList.cards, '.backlog')
+                }
+                if (thisList.name == "In Progress") {
+                    displayCards('success', thisList.cards, '.wip')
+                }
+            }
+
+        });
+
+        function displayCards(color, cards, cssSelector) {
+            for (var card in cards) {
+                var thisCard = cards[card];
+                console.log(thisCard);
+                var DOMNode = $('<div class="trelloCard"><div class="panel panel-' + color + '"><div class="panel-heading" data-toggle="collapse" data-target="#' + thisCard.id + '"></div><div class="panel-body collapse" id="' + thisCard.id + '"><h3>Associated Users:</h3><div class="members"></div><h3>Description:</h3><div class="desc">--no description set--</div><a href="' + thisCard.shortUrl + '">Open in Trello</a></div></div></div>');
+                DOMNode.find('.panel-heading').text(thisCard.name);
+                if (thisCard.desc) {
+                    DOMNode.find('.panel-body').find('.desc').text(thisCard.desc);
+                }
+                for (var i = 0; i < thisCard.idMembers.length; i++) {
+                    DOMNode.find('.panel-body').find('.members').append($('<span class="user user-' + thisCard.idMembers[i] + '"></span>'));
+                    Trello.members.get(thisCard.idMembers[i], function(member) {
+                        $('.user-' + member.id).text(member.fullName + '(' + member.username + ')');
+                    });
+                }
+
+                DOMNode.appendTo(cssSelector);
+            }
+        }
+
+        setTimeout(function() { location = '' }, 60000);
+    </script>
+    <style type="text/css" media="all">
+        .panel-body {
+            padding-top: 0px;
+        }
+
+        .user {
+            display: block;
+        }
+
+        body {
+            background-color: #298fca;
+        }
+
+        .col-xs-6 {
+            padding: 5px;
+        }
+
+        .lane {
+            background-color: #fff;
+            padding: 2px;
+            border-radius: 5px;
+        }
+
+        .trelloCard {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</body>
+
+</html>
