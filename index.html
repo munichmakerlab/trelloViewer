@@ -100,7 +100,6 @@
         function displayCards(color, cards, cssSelector) {
             for (var card in cards) {
                 var thisCard = cards[card];
-                console.log(thisCard);
                 var DOMNode = $('<div class="trelloCard"><div class="panel panel-' + color + '"><div class="panel-heading" data-toggle="collapse" data-target="#' + thisCard.id + '"></div><div class="panel-body collapse" id="' + thisCard.id +
                     '"><h3>Associated Users:</h3><div class="members"></div><h3>Description:</h3><div class="desc">--no description set--</div><a href="' + thisCard.shortUrl + '">Open in Trello</a></div></div></div>');
                 DOMNode.find('.panel-heading').text(thisCard.name);
@@ -109,8 +108,8 @@
                 }
                 for (var i = 0; i < thisCard.idMembers.length; i++) {
                     DOMNode.find('.panel-body').find('.members').append($('<span class="user user-' + thisCard.idMembers[i] + '"></span>'));
-                    let user = User.newUser(thisCard.idMembers[i]);
-                    user.fetch();
+                    let user = User.getUser(thisCard.idMembers[i]);
+                    user.updateDomNodes();
                 }
 
                 DOMNode.appendTo(cssSelector);
