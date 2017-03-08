@@ -1,0 +1,26 @@
+.panel-body {
+    padding-top: 0px;
+}
+
+.user {
+    display: block;
+}
+
+body {
+    background-color: #298fca;
+}
+
+.col-xs-6 {
+    padding: 5px;
+}
+
+.lane {
+    background-color: #fff;
+    padding: 2px;
+    border-radius: 5px;
+}
+
+.trelloCard {
+    margin-left: 20px;
+    margin-right: 20px;
+}
