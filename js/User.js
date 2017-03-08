@@ -20,6 +20,10 @@ var User = {
                 } else {
                     $('.user-' + this.id).text(this.fullName + '(' + this.username + ')');
                 }
+            },
+            getUserDisplay: function() {
+            this.updateDomNodes();
+                return $('<span class="user user-' + this.id + '">' + this.fullName + '(' + this.username + ')' + '</span>');
             }
         };
 

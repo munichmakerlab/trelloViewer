@@ -16,6 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://api.trello.com/1/client.js?key=0b1482a2c26f14282d38da1adeab8098"></script>
     <script src="js/User.js" charset="utf-8"></script>
+    <script src="js/Card.js" charset="utf-8"></script>
 </head>
 
 <body>
@@ -100,19 +101,15 @@
         function displayCards(color, cards, cssSelector) {
             for (var card in cards) {
                 var thisCard = cards[card];
-                var DOMNode = $('<div class="trelloCard"><div class="panel panel-' + color + '"><div class="panel-heading" data-toggle="collapse" data-target="#' + thisCard.id + '"></div><div class="panel-body collapse" id="' + thisCard.id +
-                    '"><h3>Associated Users:</h3><div class="members"></div><h3>Description:</h3><div class="desc">--no description set--</div><a href="' + thisCard.shortUrl + '">Open in Trello</a></div></div></div>');
-                DOMNode.find('.panel-heading').text(thisCard.name);
-                if (thisCard.desc) {
-                    DOMNode.find('.panel-body').find('.desc').text(thisCard.desc);
-                }
+                var cardObj = Card.newCard(thisCard.id);
+                cardObj.name = thisCard.name;
+                cardObj.desc = thisCard.desc;
+                cardObj.shortUrl = thisCard.shortUrl;
+                cardObj.color = color;
                 for (var i = 0; i < thisCard.idMembers.length; i++) {
-                    DOMNode.find('.panel-body').find('.members').append($('<span class="user user-' + thisCard.idMembers[i] + '"></span>'));
-                    let user = User.getUser(thisCard.idMembers[i]);
-                    user.updateDomNodes();
+                    cardObj.addUser(User.getUser(thisCard.idMembers[i]));
                 }
-
-                DOMNode.appendTo(cssSelector);
+                cardObj.appendTo(cssSelector);
             }
         }
 
