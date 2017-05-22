@@ -1,0 +1,37 @@
+@swimLanes: 2;
+@background: #298fca;
+@swimLaneWidth: 100vw / @swimLanes - 1vw;
+
+body {
+    background-color: @background;
+}
+
+h1 {
+    margin-left: 1.5vw;
+}
+
+.SwimLane {
+    background-color: #fff;
+    float: left;
+    border: 10px solid @background;
+    width: @swimLaneWidth;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+.Card {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: @swimLaneWidth - 4vw;
+    min-height: 40px;
+    .shadow-small
+}
+
+.shadow-small {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.shadow-big {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}

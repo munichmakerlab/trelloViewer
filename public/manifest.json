@@ -1,0 +1,8 @@
+{
+  "short_name": "trello-viewer",
+  "name": "A little site to query trello through their API to show on the Dashboards around the space.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
