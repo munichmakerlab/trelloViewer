@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "trello": "^0.7.0"
   },
   "devDependencies": {
     "less": "^2.7.2",
@@ -12,7 +13,7 @@
   },
   "scripts": {
     "build-less": "lessc src/App.less src/App.css",
-    "start": "react-scripts start",
+    "start": "lessc src/App.less src/App.css && react-scripts start",
     "build": "lessc src/App.less src/App.css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

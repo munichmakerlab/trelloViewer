@@ -1,6 +1,10 @@
 @swimLanes: 2;
 @background: #298fca;
 @swimLaneWidth: 100vw / @swimLanes - 1vw;
+@lightGreen: #40a35b;
+@cyan: #0094ae;
+@green: #458131;
+@blue: #0067a3;
 
 body {
     background-color: @background;
@@ -17,15 +21,48 @@ h1 {
     width: @swimLaneWidth;
     height: 100vh;
     box-sizing: border-box;
-}
-
-.Card {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 10px;
-    width: @swimLaneWidth - 4vw;
-    min-height: 40px;
-    .shadow-small
+    overflow-y: scroll;
+    overflow-x: hidden;
+    .Card {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        width: @swimLaneWidth - 4vw;
+        min-height: 40px;
+        .shadow-small;
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+        &.green {
+            background-color: lighten(@green, 30%);
+        }
+        &.lightGreen {
+            background-color: lighten(@lightGreen, 30%);
+        }
+        &.blue {
+            background-color: lighten(@blue, 30%);
+        }
+        &.cyan {
+            background-color: lighten(@cyan, 30%);
+        }
+        &:hover {
+            .shadow-big;
+        }
+        span {
+            display: block;
+            padding: .7em 0 .7em 1em;
+            &.desc {
+                padding: .7em 0 .7em 2em;
+            }
+        }
+        .Users {
+            display: inline-flex;
+            margin: 0 0 1em 1em;
+            .User {
+                img {
+                    float: left;
+                }
+            }
+        }
+    }
 }
 
 .shadow-small {
