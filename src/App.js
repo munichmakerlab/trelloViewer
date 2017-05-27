@@ -22,7 +22,7 @@ class App extends Component {
     for (var boardNr in this.state.boards) {
       if (this.state.boards.hasOwnProperty(boardNr)) {
         var board = this.state.boards[boardNr];
-        if (board.name == boardName) {
+        if (board.name === boardName) {
           return board;
         }
       }
@@ -110,9 +110,13 @@ class Card extends Component {
 
   render() {
     const card = this.props.card;
+    if (!card.desc) {
+        card.desc = "--No description yet.--";
+    }
+    
     let expandedContent;
     if (this.state.expanded) {
-      let usersComponents = []; 
+      let usersComponents = [];
       for (var memberIdNr = 0; memberIdNr < card.idMembers.length; memberIdNr++) {
         var memberId = card.idMembers[memberIdNr];
         usersComponents.push(<User id={memberId} />);
@@ -159,10 +163,9 @@ class User extends Component {
   }
 
   render() {
-    const id = this.props.id;
     this.fetchUserData();
     return (
-      <div className="User"><img src={this.state.avatarSource} title={this.state.username}></img></div>
+      <div className="User"><img src={this.state.avatarSource} title={this.state.username} alt={this.state.username}></img></div>
     );
   }
 }

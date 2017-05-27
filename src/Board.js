@@ -30,7 +30,7 @@ export default class Board {
     getListByName(listName) {
         for (var listNr = 0; listNr < this.lists.length; listNr++) {
             var list = this.lists[listNr];
-            if (list.name == listName) {
+            if (list.name === listName) {
                 return list;
             }
         }
@@ -46,7 +46,7 @@ export default class Board {
         for (var cardNr in this.cards) {
             if (this.cards.hasOwnProperty(cardNr)) {
                 var card = this.cards[cardNr];
-                    if (card.idList == list.id) {
+                    if (card.idList === list.id) {
                         cards.push(card);
                     }
             }
